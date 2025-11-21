@@ -7,30 +7,22 @@ pipeline {
     }
 
     stages {
-        stage('Check workspace') {
-            steps {
-                sh 'pwd'
-                sh 'ls -R'
-            }
-        }
-
         stage('Restore') {
             steps {
-                sh 'dotnet restore RoomReservationSystem.sln'
+                sh 'dotnet restore RoomReservationSystem-copy/RoomReservationSystem.sln'
             }
         }
 
         stage('Build') {
             steps {
-                sh 'dotnet build RoomReservationSystem.sln --configuration Release'
+                sh 'dotnet build RoomReservationSystem-copy/RoomReservationSystem.sln --configuration Release'
             }
         }
 
         stage('Run') {
             steps {
-                sh 'dotnet run --project RoomReservationSystem/RoomReservationSystem.csproj'
+                sh 'dotnet run --project RoomReservationSystem-copy/RoomReservationSystem/RoomReservationSystem.csproj'
             }
         }
     }
 }
-
