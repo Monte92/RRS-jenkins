@@ -1,0 +1,28 @@
+pipeline {
+    agent {
+        docker {
+            image 'mcr.microsoft.com/dotnet/sdk:9.0'
+            args '-u root:root'  // run as root to simplify permissions
+        }
+    }
+
+    stages {
+        stage('Restore') {
+            steps {
+                sh 'dotnet restore RoomReservationSystem.sln'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'dotnet build RoomReservationSystem.sln --configuration Release'
+            }
+        }
+
+        stage('Run') {
+            steps {
+                sh 'dotnet run --project RoomReservationSystem/RoomReservationSystem.csproj'
+            }
+        }
+    }
+}
