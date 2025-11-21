@@ -2,11 +2,18 @@ pipeline {
     agent {
         docker {
             image 'mcr.microsoft.com/dotnet/sdk:9.0'
-            args '-u root:root'  // run as root to simplify permissions
+            args '-u root:root'
         }
     }
 
     stages {
+        stage('Check workspace') {
+            steps {
+                sh 'pwd'
+                sh 'ls -R'
+            }
+        }
+
         stage('Restore') {
             steps {
                 sh 'dotnet restore RoomReservationSystem.sln'
@@ -26,3 +33,4 @@ pipeline {
         }
     }
 }
+
