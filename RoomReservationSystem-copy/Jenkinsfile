@@ -9,19 +9,31 @@ pipeline {
     stages {
         stage('Restore') {
             steps {
-                sh 'dotnet restore RoomReservationSystem-copy/RoomReservationSystem.sln'
+                dir('RoomReservationSystem-copy') {
+                    sh 'dotnet restore RoomReservationSystem.sln'
+                }
             }
         }
 
         stage('Build') {
             steps {
-                sh 'dotnet build RoomReservationSystem-copy/RoomReservationSystem.sln --configuration Release'
+                dir('RoomReservationSystem-copy') {
+                    sh 'dotnet build RoomReservationSystem.sln --configuration Release'
+                }
             }
         }
 
-        stage('Run') {
+        stage('Test') {
             steps {
-                sh 'dotnet run --project RoomReservationSystem-copy/RoomReservationSystem/RoomReservationSystem.csproj'
+                dir('RoomReservationSystem-copy') {
+                    sh 'dotnet test RoomReservationSystem.Tests/RoomReservationSystem.Tests.csproj'
+                }
+            }
+        }
+
+        stage('Run (skipped)') {
+            steps {
+                echo 'Skipping interactive run in CI'
             }
         }
     }
