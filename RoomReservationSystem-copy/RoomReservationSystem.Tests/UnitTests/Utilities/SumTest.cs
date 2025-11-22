@@ -1,7 +1,7 @@
-using Xunit;
+﻿using Xunit;
 using RoomReservationSystem.Utilities;
 
-namespace RoomReservationSystem.Tests.Utilities
+namespace RoomReservationSystem.Tests.UnitTests.Utilities
 {
     public class SumTests
     {
@@ -14,7 +14,7 @@ namespace RoomReservationSystem.Tests.Utilities
         [InlineData(int.MinValue, 0, int.MinValue)]
         public void CalculateSum_ReturnsExpected(int a, int b, int expected)
         {
-            var result = Sum.CalculateSum(a, b);
+            var result = RoomReservationSystem.Utilities.BasicOperations.CalculateSum(a, b);
             Assert.Equal(expected, result);
         }
 
@@ -24,8 +24,8 @@ namespace RoomReservationSystem.Tests.Utilities
         public void CalculateSum_OverflowBehavior_MatchesUncheckedAddition(int a, int b)
         {
             var expected = unchecked(a + b);
-            var result = Sum.CalculateSum(a, b);
+            var result = RoomReservationSystem.Utilities.BasicOperations.CalculateSum(a, b);
             Assert.Equal(expected, result);
         }
     }
-}   
+}
