@@ -36,5 +36,18 @@ pipeline {
                 echo 'Skipping interactive run in CI'
             }
         }
+		
+		stage('Build Docker Image') {
+			steps {
+				script {
+					sh """
+						docker build \
+						  -f RoomReservationSystem/RoomReservationSystem/Dockerfile \
+						  -t roomreservation:latest \
+						  .
+					"""
+				}
+			}
+		}
     }
 }
