@@ -4,6 +4,12 @@ pipeline {
 
     stages {
 
+        stage('Init Echo') {
+            steps {
+                echo "This is recently added line in Jenkinsfile."
+            }
+        }
+
         stage('Dotnet Steps') {
             agent {
                 docker {
